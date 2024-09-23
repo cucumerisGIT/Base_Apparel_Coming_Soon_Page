@@ -6,26 +6,45 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     <link rel="stylesheet" href="styles.css">
-    
+
     <title>Frontend Mentor | Base Apparel coming soon page</title>
   </head>
   <body>
-    <header>
-      <img class="logo" src="images/logo.svg" alt="logo of Base Apparel">
+    <header class="header">
+      <img class="header__logo" src="images/logo.svg" alt="logo of Base Apparel">
     </header>
 
-    We're coming soon
+    <figure class="hero">
+      <img class="hero__image" src="images/hero-mobile.jpg" alt="women showcasing products of Base Apparel">
+    </figure>
 
-    Hello fellow shoppers! We're currently building our new fashion store. 
-    Add your email below to stay up-to-date with announcements and our launch deals.
+    <main class="main">
+      <h1 class="main__title">
+        <span>We're</span>
+        <span>coming</span>
+        <span>soon</span>
+      </h1>
 
-    Email Address
-    
-    <footer>
-      <p class="attribution">
-        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-        Coded by <a href="https://github.com/cucumerisGIT" target="_blank">cucumeris</a>.
+      <p class="main__text">
+        Hello fellow shoppers! We're currently building our new fashion store. 
+        Add your email below to stay up-to-date with announcements and our launch deals.    
       </p>
+
+      <form class="form" id="form">
+        <div class="form__input-wrapper">
+          <input class="form__email" id="email" type="email" placeholder="Email Address">
+          <img class="form__error-icon" id="error-icon" src="images/icon-error.svg" hidden>
+          <button class="form__submit" type="submit"><img src="images/icon-arrow.svg" role="presentation" alt=""></button>
+        </div>
+        <p class="form__error-msg" id="error-msg" hidden>Please provide a valid email</p>
+      </form>
+    </main>
+
+    <footer class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">cucumeris</a>.
     </footer>
+    
+    <script src="script.js" defer></script>
   </body>
 </html>

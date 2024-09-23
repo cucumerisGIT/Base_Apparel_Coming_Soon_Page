@@ -2,6 +2,22 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&display=swap');
 
+/* Mixins */
+
+@mixin flex($dir: column, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin grid-areas($areas, $rows: repeat(auto-fit, 1fr), $cols: repeat(auto-fit, 1fr)) {
+    display: grid;
+    grid-template-areas: $areas;
+    grid-template-rows: $rows;
+    grid-template-columns: $cols;
+}
+
 /* Variables */
 
 // Colors
@@ -11,19 +27,253 @@ $dark-grayish-red: hsl(0, 6%, 24%);
 
 // Gradients
 $linear-white-gradient: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 100%, 98%));
-$linear-pink-gradient: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
+$linear-pinkish-gradient: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
 
-/* Elements */
+/* Blocks */
 
-/* Attribution */
+html {
+    min-height: 100dvh;
 
-.attribution { 
-    font-size: 11px; 
-    text-align: center; 
+    font-size: 16px;
 }
 
-.attribution a { 
-    color: hsl(228, 45%, 44%); 
+body {
+    // @include flex($align: unset);
+    @include grid-areas(
+        "header"
+        "hero"
+        "main"
+        "footer"
+    );
+
+    min-height: min-content;
+    height: 100dvh;
+    
+    margin: 0;
+    padding: 0;
+
+    background: $linear-white-gradient;
+}
+
+* {
+    font-family: "Josefin Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+// Header
+
+.header {
+    grid-area: header;
+    
+    padding: 2rem;
+
+    /* Elements */
+
+    &__logo {
+        height: 1.5rem;
+    }
+}
+
+// Hero
+
+.hero {
+    grid-area: hero;
+
+    width: 100%;
+    margin: 0;
+    margin-bottom: 2rem;
+    padding: 0;
+
+    /* Elements */
+
+    &__image {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+// Main 
+
+.main {
+    grid-area: main;
+
+    padding: 0 1.5rem;
+
+    /* Elements */
+
+    &__title {
+        @include flex();
+        
+        text-transform: uppercase;
+        font-size: 3rem;
+        font-weight: 600;
+        letter-spacing: .5rem;
+
+        color: $dark-grayish-red;
+        
+        :nth-child(1) {
+            font-weight: 300;
+            
+            color: $desaturated-red;
+        }
+    }
+
+    &__text {
+        text-align: center;
+        font-size: .9rem;
+        line-height: 1.25rem;
+
+        color: $desaturated-red;
+    }
+}
+
+// Form
+
+.form {
+    --border-radius: 2rem;
+
+    // justify-content: center;
+    // position: relative;
+
+    margin: 2rem auto;
+    background: transparent;
+
+    /* Elements */
+
+    &__input-wrapper {
+        position: relative;
+        
+        width: 100%;
+    }
+
+    &__email {
+        width: 100%;
+
+        padding: 1rem;
+
+        border: 1px solid rgba($dark-grayish-red, 0.25);
+        border-radius: var(--border-radius);
+
+        color: $desaturated-red;
+        background: transparent;
+
+        &::placeholder {
+            color: $desaturated-red;
+        }
+
+        &--error {
+            border: 2px solid $soft-red;
+            outline: $soft-red;
+        }
+    }
+
+    &__error-icon {
+        position: absolute;
+        top: 25%;
+        right: 20%;
+    }
+
+    &__error-msg {
+        position: relative;
+        left: 5%;
+        
+        font-size: .8rem;
+        font-weight: 600;
+
+        color: $soft-red;
+    }
+
+    &__submit {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        height: 100%;
+        width: calc(var(--border-radius) * 2);
+
+        font-size: 2rem;
+        font-weight: 300;
+
+        border: none;
+        border-radius: var(--border-radius);
+
+        color: white;
+        background: $linear-pinkish-gradient;
+    }
+}
+
+// Attribution
+
+.attribution {
+    grid-area: footer;
+
+    font-size: 11px;
+    text-align: center;
+}
+
+.attribution a {
+    color: hsl(228, 45%, 44%);
 }
 
 /* Queries */
+
+@media (min-width: 800px) {
+    body {
+        grid-template-areas: 
+            "header hero"
+            "main   hero"
+            "footer hero"
+        ;
+        grid-template-columns: 60% 40%;
+        grid-template-rows: min-content 1fr 1%;
+
+        background: url("images/bg-pattern-desktop.svg");
+        // background-repeat: no-repeat;
+        background-size: 60% 100%;
+    }
+
+    .header {
+        max-width: 500px;
+        width: 100%;
+
+        margin: auto;
+        padding: 5rem 0 3rem 0;
+
+        &__logo {
+             height: 2.5rem;
+        }
+    }
+    
+    .hero {
+        height: 100%;
+        max-height: max-content;
+
+        overflow: hidden;
+
+        &__image {
+            content: url("images/hero-desktop.jpg");
+            
+            height: 100%;
+        }
+    }
+
+    .main {
+        justify-self: center;
+        align-self: center;
+
+        max-width: 500px;
+        
+        margin: 0 auto;
+        padding: 0;
+
+        /* Elements */
+
+        &__title {
+            align-items: start;
+        }
+
+        &__text {
+            text-align: start;
+        }
+    }
+}
