@@ -24,4 +24,4 @@ const onFormSubmit = (e: Event) => {
     errorMsg.toggleAttribute("hidden", isEmailValid);
 }
 
-form.addEventListener("submit", onFormSubmit)
+form.addEventListener("submit", onFormSubmit);
